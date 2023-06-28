@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+ 
+{% block title %}Project index{% endblock %}
+ 
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Gestor de Proveedores</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('proveedor_new') }}"> 
+                    Crear Proveedor
+                </a>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Fecha de creación</th>
+                        <th>Fecha de actualización</th>
+                        <th width="240px">Acción</th>
+                    </tr>
+                    {% for proveedor in proveedores %}
+                    <tr>
+                        <td>{{ proveedor.nombre }}</td>
+                        <td>{{ proveedor.correo }}</td>
+                        <td>{{ proveedor.createdAt ? proveedor.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>{{ proveedor.updatedAt ? proveedor.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <td>
+                            <form method="post" action="{{ path('proveedor_delete', {'id': proveedor.id}) }}" onsubmit="return confirm('¿Estás seguro de que quieres borrar este Proveedor?');">
+                                <a
+                                    class="btn btn-outline-info"
+                                    href="{{ path('project_show', {'id': proveedor.id}) }}">
+                                    Mostrar
+                                </a>
+                                <a
+                                    class="btn btn-outline-success"
+                                    href="{{ path('project_edit', {'id': proveedor.id}) }}">
+                                    Editar
+                                </a>
+ 
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ proveedor.id) }}">
+                                <button class="btn btn-outline-danger">Borrar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+ 
+{% endblock %}

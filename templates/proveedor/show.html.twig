@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+ 
+{% block title %}Proveedor{% endblock %}
+ 
+{% block body %}
+    <div class="container">
+        <h2 class="text-center mt-5 mb-3">Ver Proveedor</h2>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-info float-right" href="{{ path('proveedor_index') }}"> 
+                    Ver Proveedores
+                </a>
+            </div>
+            <div class="card-body">
+                <b class="text-muted">Nombre:</b>
+                <p>{{ proveedor.nombre }}</p>
+                <b class="text-muted">Correo electrónico:</b>
+                <p>{{ proveedor.correo }}</p>
+                <b class="text-muted">Fecha de creación:</b>
+                <p>{{ proveedor.createdAt ? proveedor.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+                <b class="text-muted">Fecha de actualización:</b>
+                <p>{{ proveedor.updatedAt ? proveedor.updatedAt|date('Y-m-d H:i:s') : '' }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
